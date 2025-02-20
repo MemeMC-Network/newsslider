@@ -7,28 +7,28 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-
-        <div class="content">
-            <div class="news-ticker">
-                <div class="news-item" id="news-item">
-                    <!-- Dynamic news item will appear here -->
-                </div>
-            </div>
+    <div class="news-ticker">
+        <div class="news-item" id="news-item">
+            <!-- Dynamic news item will appear here -->
         </div>
     </div>
 
     <script>
-        // Get the news text from localStorage
-        const newsText = localStorage.getItem('newsText');
-
-        if (newsText) {
-            // Display the text as a news item
-            document.getElementById('news-item').textContent = newsText;
-        } else {
-            // Fallback text in case there's no news
-            document.getElementById('news-item').textContent = "No news available. Please submit news on the Text Input page.";
+        // Fetch the news text from the Node.js server
+        async function fetchNews() {
+            try {
+                const response = await fetch('http://localhost:3000/news');
+                const result = await response.json();
+                document.getElementById('news-item').textContent = result.news;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('news-item').textContent = "Error loading news.";
+            }
         }
+
+        // Fetch news on page load and update in real-time
+        fetchNews();
+        setInterval(fetchNews, 5000); // Poll every 5 seconds for updates
     </script>
 </body>
 </html>
