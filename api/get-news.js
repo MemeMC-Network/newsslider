@@ -1,6 +1,6 @@
 import Redis from 'ioredis';
 
-// Create a new Redis client
+// Create a new Redis client 
 const redis = new Redis({
   host: process.env.REDIS_HOST,
   port: process.env.REDIS_PORT,
