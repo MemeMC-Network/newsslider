@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Website</title>
+    <title>Text Input</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Welcome to the Website</h1>
+            <h1>Text Input Page</h1>
             <nav>
                 <ul>
                     <li><a href="index.html">Text Input</a></li>
@@ -19,13 +19,30 @@
         </header>
 
         <div class="content">
-            <h2>Text Input Page</h2>
-            <form>
+            <h2>Enter Your News</h2>
+            <form id="text-form">
                 <label for="user-input">Enter Text:</label>
-                <input type="text" id="user-input" placeholder="Type here..." />
+                <input type="text" id="user-input" placeholder="Type your news here..." required />
                 <button type="submit">Submit</button>
             </form>
         </div>
     </div>
+
+    <script>
+        const form = document.getElementById('text-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent page reload
+            const inputText = document.getElementById('user-input').value;
+
+            // Save the text to localStorage
+            localStorage.setItem('newsText', inputText);
+
+            // Clear the input field after submission
+            document.getElementById('user-input').value = '';
+
+            // Optionally, alert the user
+            alert('News submitted! Go to the News Slider page to see it.');
+        });
+    </script>
 </body>
 </html>
