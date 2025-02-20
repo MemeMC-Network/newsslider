@@ -10,18 +10,12 @@
     <div class="container">
         <header>
             <h1>Text Input Page</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Text Input</a></li>
-                    <li><a href="news.html">News Slider</a></li>
-                </ul>
-            </nav>
         </header>
 
         <div class="content">
             <h2>Enter Your News</h2>
             <form id="text-form">
-                <label for="user-input">Enter Text:</label>
+                <label for="user-input">Enter News Text:</label>
                 <input type="text" id="user-input" placeholder="Type your news here..." required />
                 <button type="submit">Submit</button>
             </form>
@@ -30,18 +24,30 @@
 
     <script>
         const form = document.getElementById('text-form');
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', async function(event) {
             event.preventDefault();  // Prevent page reload
             const inputText = document.getElementById('user-input').value;
 
-            // Save the text to localStorage
-            localStorage.setItem('newsText', inputText);
+            // Submit the text to the Node.js server and Redis
+            try {
+                const response = await fetch('http://localhost:3000/news', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ newsText: inputText })
+                });
+                const result = await response.json();
+                if (result.message) {
+                    alert('News submitted successfully!');
+                } else {
+                    alert(result.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to submit news.');
+            }
 
-            // Clear the input field after submission
+            // Clear the input field
             document.getElementById('user-input').value = '';
-
-            // Optionally, alert the user
-            alert('News submitted! Go to the News Slider page to see it.');
         });
     </script>
 </body>
