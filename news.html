@@ -14,10 +14,10 @@
     </div>
 
     <script>
-        // Fetch the news text from the Node.js server
+        // Fetch the news text from the Vercel API endpoint
         async function fetchNews() {
             try {
-                const response = await fetch('http://localhost:3000/news');
+                const response = await fetch('/api/get-news');
                 const result = await response.json();
                 document.getElementById('news-item').textContent = result.news;
             } catch (error) {
