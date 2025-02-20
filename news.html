@@ -20,12 +20,24 @@
 
         <div class="content">
             <div class="news-ticker">
-                <div class="news-item">Breaking News: Website is live!</div>
-                <div class="news-item">Upcoming Event: Live stream tomorrow at 7 PM.</div>
-                <div class="news-item">Reminder: Check our latest updates every hour.</div>
-                <div class="news-item">New Feature: Customizable news ticker added!</div>
+                <div class="news-item" id="news-item">
+                    <!-- Dynamic news item will appear here -->
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Get the news text from localStorage
+        const newsText = localStorage.getItem('newsText');
+
+        if (newsText) {
+            // Display the text as a news item
+            document.getElementById('news-item').textContent = newsText;
+        } else {
+            // Fallback text in case there's no news
+            document.getElementById('news-item').textContent = "No news available. Please submit news on the Text Input page.";
+        }
+    </script>
 </body>
 </html>
