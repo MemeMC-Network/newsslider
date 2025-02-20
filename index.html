@@ -28,9 +28,9 @@
             event.preventDefault();  // Prevent page reload
             const inputText = document.getElementById('user-input').value;
 
-            // Submit the text to the Node.js server and Redis
+            // Submit the text to the Vercel API endpoint
             try {
-                const response = await fetch('http://localhost:3000/news', {
+                const response = await fetch('/api/set-news', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ newsText: inputText })
